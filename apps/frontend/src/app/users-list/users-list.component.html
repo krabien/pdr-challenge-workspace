@@ -12,6 +12,13 @@
     @if (users.length === 0) {
       <div class="empty">No users found.</div>
     } @else {
+      <div class="controls">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Search by name</mat-label>
+          <input matInput type="text" (input)="applyFilter($any($event.target).value)" placeholder="e.g. Jane Doe" aria-label="Search users by full name" />
+        </mat-form-field>
+      </div>
+
       <div class="table-container">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
           <!-- ID Column -->
