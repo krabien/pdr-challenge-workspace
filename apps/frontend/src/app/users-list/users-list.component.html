@@ -13,7 +13,7 @@
       <div class="empty">No users found.</div>
     } @else {
       <div class="table-container">
-        <table mat-table [dataSource]="users" class="mat-elevation-z2">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
           <!-- ID Column -->
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -38,18 +38,6 @@
             <td mat-cell *matCellDef="let user"> {{ user.email || '—' }} </td>
           </ng-container>
 
-          <!-- Phone Column -->
-          <ng-container matColumnDef="phoneNumber">
-            <th mat-header-cell *matHeaderCellDef> Phone </th>
-            <td mat-cell *matCellDef="let user"> {{ user.phoneNumber || '—' }} </td>
-          </ng-container>
-
-          <!-- Birth Date Column -->
-          <ng-container matColumnDef="birthDate">
-            <th mat-header-cell *matHeaderCellDef> Birth Date </th>
-            <td mat-cell *matCellDef="let user"> {{ user.birthDate | date: 'mediumDate' }} </td>
-          </ng-container>
-
           <!-- Role Column -->
           <ng-container matColumnDef="role">
             <th mat-header-cell *matHeaderCellDef> Role </th>
@@ -59,6 +47,8 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <mat-paginator [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons aria-label="Select page">
+        </mat-paginator>
       </div>
     }
   }
