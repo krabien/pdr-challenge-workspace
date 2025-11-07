@@ -5,9 +5,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { UsersStoreService } from '../users-storage.service';
 import { User } from '@pdr-challenge-workspace/shared';
 import { Subscription } from 'rxjs';
+import { UserDetailDialogComponent } from '../user-detail-dialog/user-detail-dialog.component';
 
 @Component({
   selector: 'app-users-list',
@@ -21,6 +23,7 @@ import { Subscription } from 'rxjs';
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDialogModule,
   ],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.scss',
@@ -48,7 +51,7 @@ export class UsersListComponent implements OnDestroy {
 
   private sub = new Subscription();
 
-  constructor(public readonly usersService: UsersStoreService) {
+  constructor(public readonly usersService: UsersStoreService, private dialog: MatDialog) {
     // Configure filter to search by full name (first + last)
     this.dataSource.filterPredicate = (data: User, filter: string) => {
       const fullName = `${data.firstName} ${data.lastName}`.toLowerCase();
@@ -61,6 +64,15 @@ export class UsersListComponent implements OnDestroy {
         this.dataSource.data = users ?? [];
       })
     );
+  }
+
+  openDetails(user: User): void {
+    console.log(`clicked ${user}`);
+    if (!user?.id) return;
+    this.dialog.open(UserDetailDialogComponent, {
+      data: { userId: user.id },
+      width: '480px',
+    });
   }
 
   // Called from the template on input

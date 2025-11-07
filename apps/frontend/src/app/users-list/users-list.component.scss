@@ -30,4 +30,11 @@
   th.mat-header-cell, td.mat-cell {
     padding-inline: 12px;
   }
+
+  .clickable-row {
+    cursor: pointer;
+  }
+  .clickable-row:hover {
+    background-color: var(--mat-sys-surface-container, #eee);
+  }
 }

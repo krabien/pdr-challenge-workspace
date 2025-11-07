@@ -1,0 +1,41 @@
+:host {
+  display: block;
+}
+
+/* Layout inside the dialog */
+.details {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 16px;
+  row-gap: 10px;
+  margin: 4px 0 8px;
+}
+
+.details dt {
+  margin: 0;
+  align-self: center;
+  color: var(--mat-sys-on-surface-variant, #666);
+  font-weight: 500;
+}
+
+.details dd {
+  margin: 0;
+  align-self: center;
+  color: var(--mat-sys-on-surface);
+}
+
+.details .role {
+  text-transform: capitalize;
+}
+
+.loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.error {
+  color: var(--mat-sys-error, #b00020);
+  padding: 8px 0;
+}
