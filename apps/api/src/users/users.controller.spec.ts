@@ -16,9 +16,7 @@ describe('UsersController', () => {
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
-      providers: [
-        { provide: UsersService, useValue: usersService },
-      ],
+      providers: [{ provide: UsersService, useValue: usersService }],
     }).compile();
 
     controller = module.get<UsersController>(UsersController);
@@ -48,7 +46,13 @@ describe('UsersController', () => {
 
   it('findAll delegates to UsersService.findAll and returns result', () => {
     const users = [
-      { id: 1, firstName: 'A', lastName: 'A', birthDate: '2000-01-01', role: 'viewer' as const },
+      {
+        id: 1,
+        firstName: 'A',
+        lastName: 'A',
+        birthDate: '2000-01-01',
+        role: 'viewer' as const,
+      },
     ];
     (usersService.findAll as jest.Mock).mockReturnValue(users);
 
@@ -59,7 +63,13 @@ describe('UsersController', () => {
   });
 
   it('findOne converts id to number and delegates to UsersService.findOne', () => {
-    const user = { id: 42, firstName: 'X', lastName: 'Y', birthDate: '1990-01-01', role: 'editor' as const };
+    const user = {
+      id: 42,
+      firstName: 'X',
+      lastName: 'Y',
+      birthDate: '1990-01-01',
+      role: 'editor' as const,
+    };
     (usersService.findOne as jest.Mock).mockReturnValue(user);
 
     const result = controller.findOne('42');

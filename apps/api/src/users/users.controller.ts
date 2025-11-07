@@ -8,7 +8,10 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body(new ZodValidationPipe(UserSchema.omit({ id: true }))) createUserDto: UserDto) {
+  create(
+    @Body(new ZodValidationPipe(UserSchema.omit({ id: true })))
+    createUserDto: UserDto
+  ) {
     return this.usersService.create(createUserDto);
   }
 
@@ -21,5 +24,4 @@ export class UsersController {
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(+id);
   }
-
 }

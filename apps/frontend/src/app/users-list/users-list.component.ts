@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -51,7 +56,10 @@ export class UsersListComponent implements OnDestroy {
 
   private sub = new Subscription();
 
-  constructor(public readonly usersService: UsersStoreService, private dialog: MatDialog) {
+  constructor(
+    public readonly usersService: UsersStoreService,
+    private dialog: MatDialog
+  ) {
     // Configure filter to search by full name (first + last)
     this.dataSource.filterPredicate = (data: User, filter: string) => {
       const fullName = `${data.firstName} ${data.lastName}`.toLowerCase();

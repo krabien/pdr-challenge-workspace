@@ -6,7 +6,7 @@ describe('GET /users basic smoke test', () => {
     expect(res.status).toBe(200);
     expect(res.data.length).toBeGreaterThanOrEqual(100);
     expect(res.data[0].id).toEqual(1);
-    expect(res.data[0].firstName).toEqual("Cynthia");
+    expect(res.data[0].firstName).toEqual('Cynthia');
   });
 });
 
@@ -15,32 +15,31 @@ describe('GET /users/:id basic smoke test', () => {
     const res = await axios.get(`/api/users/3`);
     expect(res.status).toBe(200);
     expect(res.data.id).toEqual(3);
-    expect(res.data.firstName).toEqual("Anita");
+    expect(res.data.firstName).toEqual('Anita');
   });
 });
 
 describe('POST /users validation failure test', () => {
   it('should fail creating a new user when validation fails', async () => {
-
     // data before
     const usersBefore = await axios.get(`/api/users`);
 
     try {
       await axios.post(`/api/users`, {
-        "firstName": "Test Data First Name",
-        "lastName": "Test Data Last Name",
-        "email": "test-data@test.data",
-        "phoneNumber": "1234567890",
-        "birthDate": "1234-56-78",
-        "role": "user"
-      })
-    } catch(axiosError) {
+        firstName: 'Test Data First Name',
+        lastName: 'Test Data Last Name',
+        email: 'test-data@test.data',
+        phoneNumber: '1234567890',
+        birthDate: '1234-56-78',
+        role: 'user',
+      });
+    } catch (axiosError) {
       // check validation response
       expect(axiosError.response.status).toBe(400);
       expect(axiosError.response.data.statusCode).toEqual(400);
-      expect(axiosError.response.data.message).toEqual("Validation failed");
+      expect(axiosError.response.data.message).toEqual('Validation failed');
       expect(axiosError.response.data.errors.length).toEqual(1);
-      expect(axiosError.response.data.errors[0].path).toEqual("role");
+      expect(axiosError.response.data.errors[0].path).toEqual('role');
     }
 
     // data after
@@ -48,7 +47,6 @@ describe('POST /users validation failure test', () => {
 
     // the data length should be unchanged
     expect(usersBefore.data.length).toEqual(usersAfter.data.length);
-
   });
 });
 

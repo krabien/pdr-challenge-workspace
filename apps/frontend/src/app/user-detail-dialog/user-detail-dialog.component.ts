@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ApiService } from '../api.service';
@@ -28,7 +32,6 @@ export interface UserDetailDialogData {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserDetailDialogComponent {
-
   user$!: Observable<User | null>;
   loadError = false;
 
@@ -37,16 +40,14 @@ export class UserDetailDialogComponent {
     private dialogRef: MatDialogRef<UserDetailDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: UserDetailDialogData
   ) {
-    this.user$ = this.api
-      .get<User>(`users/${this.data.userId}`)
-      .pipe(
-        shareReplay(1),
-        catchError((err) => {
-          console.error('Failed to load user', err);
-          this.loadError = true;
-          return of(null);
-        })
-      );
+    this.user$ = this.api.get<User>(`users/${this.data.userId}`).pipe(
+      shareReplay(1),
+      catchError((err) => {
+        console.error('Failed to load user', err);
+        this.loadError = true;
+        return of(null);
+      })
+    );
   }
 
   close(): void {

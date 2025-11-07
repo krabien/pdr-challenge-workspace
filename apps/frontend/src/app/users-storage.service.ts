@@ -19,20 +19,23 @@ export class UsersStoreService {
 
   loadUsers(): void {
     this.loadingSubject.next(true);
-    this.api.get<User[]>('users').pipe(
-      tap((users) => {
-        // Data is received and typed as User[] from the shared library
-        this.usersSubject.next(users);
-        console.log('Users loaded:', users.length);
-        this.loadingSubject.next(false);
-      }),
-      catchError((error) => {
-        console.error('Failed to load users', error);
-        this.loadingSubject.next(false);
-        // Optionally handle error state
-        return of([]);
-      })
-    ).subscribe();
+    this.api
+      .get<User[]>('users')
+      .pipe(
+        tap((users) => {
+          // Data is received and typed as User[] from the shared library
+          this.usersSubject.next(users);
+          console.log('Users loaded:', users.length);
+          this.loadingSubject.next(false);
+        }),
+        catchError((error) => {
+          console.error('Failed to load users', error);
+          this.loadingSubject.next(false);
+          // Optionally handle error state
+          return of([]);
+        })
+      )
+      .subscribe();
   }
 
   createUser(userDto: UserDto): Observable<User> {
