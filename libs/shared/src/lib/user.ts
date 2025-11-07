@@ -19,4 +19,4 @@ export type User = z.infer<typeof UserSchema>;
  * Type for the data transfer object (DTO) used for creation/updates (used for POST body).
  * We make 'id' required for type consistency in the app, but optional in the schema for validation.
  */
-export type UserDto = Omit<User, 'id'> & { id?: string };
+export type UserDto = Omit<User, 'id'> & { id?: number };
