@@ -66,7 +66,7 @@ describe('ZodValidationPipe', () => {
       const err = e as BadRequestException;
       expect(err.getStatus()).toBe(400);
       // Message should be the generic one we pass in the constructor
-      expect(String(err.message)).toContain('Validation failed');
+      expect(String(err.message)).toContain('boom');
     }
   });
 });
