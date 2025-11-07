@@ -4,7 +4,6 @@
     "firstName": "Cynthia",
     "lastName": "Long",
     "email": "kaufmanadam@burnett.org",
-    "birthDate": "31-31-9999",
     "role": "viewer"
   },
   {
@@ -834,14 +833,6 @@
     "lastName": "Jackson",
     "email": "arthurharmon@gmail.com",
     "phoneNumber": "(300)720-6776x144",
-    "role": "editor"
-  },
-  {
-    "id": 101,
-    "firstName": "Kennith",
-    "lastName": "Block",
-    "email": "Jaiden_Hartmann@hotmail.com",
-    "phoneNumber": "905-943-2970",
     "role": "editor"
   }
 ]
