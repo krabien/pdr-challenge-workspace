@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   OnDestroy,
   ViewChild,
 } from '@angular/core';
@@ -64,11 +65,10 @@ export class UsersListComponent implements OnDestroy {
   }
 
   private sub = new Subscription();
+  public readonly usersService = inject(UsersStoreService);
+  private dialog = inject(MatDialog);
 
-  constructor(
-    public readonly usersService: UsersStoreService,
-    private dialog: MatDialog
-  ) {
+  constructor() {
     // search by full name
     this.dataSource.filterPredicate = (data: User, filter: string) => {
       const fullName = `${data.firstName} ${data.lastName}`.toLowerCase();

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import {
   MAT_DIALOG_DATA,
@@ -10,10 +10,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ApiService } from '../api.service';
 import { User } from '@pdr-challenge-workspace/shared';
 import { catchError, Observable, of, shareReplay } from 'rxjs';
-
-export interface UserDetailDialogData {
-  userId: number;
-}
 
 @Component({
   selector: 'app-user-detail-dialog',
@@ -35,11 +31,10 @@ export class UserDetailDialogComponent {
   user$!: Observable<User | null>;
   loadError = false;
 
-  constructor(
-    private api: ApiService,
-    private dialogRef: MatDialogRef<UserDetailDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: UserDetailDialogData
-  ) {
+  private api = inject(ApiService);
+  private dialogRef = inject(MatDialogRef<UserDetailDialogComponent>);
+  public data = inject(MAT_DIALOG_DATA);
+  constructor() {
     this.user$ = this.api.get<User>(`users/${this.data.userId}`).pipe(
       shareReplay(1),
       catchError((err) => {

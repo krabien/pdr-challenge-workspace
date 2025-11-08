@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '@pdr-challenge-workspace/shared';
@@ -15,7 +15,7 @@ const API_URL = 'http://localhost:3000/api';
 // It abstracts away the details of making requests so we can easily mock
 // the backend in tests.
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   get<T>(path: string): Observable<T> {
     console.log('GET', API_URL, path);
