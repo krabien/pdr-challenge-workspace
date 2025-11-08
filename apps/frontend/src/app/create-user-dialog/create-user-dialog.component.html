@@ -6,45 +6,87 @@
 <mat-dialog-content>
   <form
     [formGroup]="form"
-    (ngSubmit)="$event.preventDefault()"
+    (ngSubmit)="onSubmit()"
     aria-label="Create user form"
   >
+    <!-- Optional summary for non-field errors -->
+    @if (hasZodError()) {
+      <div class="error-summary" role="alert">
+        @for (msg of getZodErrors(); track $index) {
+          <div>{{ msg }}</div>
+        }
+      </div>
+    }
+
     <div class="form-grid">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
         <mat-label>First name</mat-label>
-        <input matInput formControlName="firstName" placeholder="e.g. Alex" />
+        <input matInput formControlName="firstName" />
+        <mat-error>
+          @if (hasZodError('firstName')) {
+            @for (m of getZodErrors('firstName'); track $index) {
+              <div>{{ m }}</div>
+            }
+          }
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
         <mat-label>Last name</mat-label>
-        <input matInput formControlName="lastName" placeholder="e.g. Johnson" />
+        <input matInput formControlName="lastName" />
+        <mat-error>
+          @if (hasZodError('lastName')) {
+            @for (m of getZodErrors('lastName'); track $index) {
+              <div>{{ m }}</div>
+            }
+          }
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="full-width">
+      <mat-form-field appearance="outline" class="full-width" subscriptSizing="dynamic">
         <mat-label>Email</mat-label>
         <input
           matInput
           type="email"
           formControlName="email"
-          placeholder="e.g. alex@example.com"
         />
+        <mat-error>
+          @if (hasZodError('email')) {
+            @for (m of getZodErrors('email'); track $index) {
+              <div>{{ m }}</div>
+            }
+          }
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
         <mat-label>Phone number</mat-label>
         <input
           matInput
           type="tel"
           formControlName="phoneNumber"
-          placeholder="e.g. +1 555 0100"
         />
+        <mat-error>
+          @if (hasZodError('phoneNumber')) {
+            @for (m of getZodErrors('phoneNumber'); track $index) {
+              <div>{{ m }}</div>
+            }
+          }
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic">
         <mat-label>Birth date</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="birthDate" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-error>
+          @if (hasZodError('birthDate')) {
+            @for (m of getZodErrors('birthDate'); track $index) {
+              <div>{{ m }}</div>
+            }
+          }
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
@@ -54,19 +96,25 @@
           <mat-option [value]="r">{{ r }}</mat-option>
           }
         </mat-select>
+        <mat-error>
+          @if (hasZodError('role')) {
+            @for (m of getZodErrors('role'); track $index) {
+              <div>{{ m }}</div>
+            }
+          }
+        </mat-error>
       </mat-form-field>
     </div>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-stroked-button color="primary" (click)="close()">Cancel</button>
-  <!-- The submit action will be implemented later. Keep disabled for now. -->
+  <button mat-stroked-button color="primary" type="button" (click)="close()">Cancel</button>
   <button
     mat-flat-button
     color="primary"
-    [disabled]="true"
-    aria-disabled="true"
+    type="button"
+    (click)="onSubmit()"
   >
     Create
   </button>
