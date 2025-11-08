@@ -19,7 +19,7 @@ describe('GET /users/:id basic smoke test', () => {
   });
 });
 
-describe('POST /users validation failure test', () => {
+describe('POST /users simple validation failure test', () => {
   it('should fail creating a new user when validation fails', async () => {
     // data before
     const usersBefore = await axios.get(`/api/users`);
@@ -28,9 +28,6 @@ describe('POST /users validation failure test', () => {
       await axios.post(`/api/users`, {
         firstName: 'Test Data First Name',
         lastName: 'Test Data Last Name',
-        email: 'test-data@test.data',
-        phoneNumber: '1234567890',
-        birthDate: '1234-56-78',
         role: 'user',
       });
     } catch (axiosError) {
@@ -40,6 +37,63 @@ describe('POST /users validation failure test', () => {
       expect(axiosError.response.data.message).toEqual('Validation failed');
       expect(axiosError.response.data.errors.length).toEqual(1);
       expect(axiosError.response.data.errors[0].path).toEqual('role');
+    }
+
+    // data after
+    const usersAfter = await axios.get(`/api/users`);
+
+    // the data length should be unchanged
+    expect(usersBefore.data.length).toEqual(usersAfter.data.length);
+  });
+});
+
+describe('POST /users complex validation failure test', () => {
+  it('should fail creating a new admin when complex validation fails', async () => {
+    // data before
+    const usersBefore = await axios.get(`/api/users`);
+
+    try {
+      await axios.post(`/api/users`, {
+        firstName: 'Test Data First Name',
+        lastName: 'Test Data Last Name',
+        email: 'test-data@test.data',
+        role: 'admin',
+      });
+    } catch (axiosError) {
+      // check validation response
+      expect(axiosError.response.status).toBe(400);
+      expect(axiosError.response.data.statusCode).toEqual(400);
+      expect(axiosError.response.data.message).toEqual('Validation failed');
+      expect(axiosError.response.data.errors.length).toEqual(2);
+      expect(axiosError.response.data.errors[0].path).toEqual('phoneNumber');
+      expect(axiosError.response.data.errors[1].path).toEqual('birthDate');
+    }
+
+    // data after
+    const usersAfter = await axios.get(`/api/users`);
+
+    // the data length should be unchanged
+    expect(usersBefore.data.length).toEqual(usersAfter.data.length);
+  });
+
+  it('should fail creating a new editor when complex validation fails', async () => {
+    // data before
+    const usersBefore = await axios.get(`/api/users`);
+
+    try {
+      await axios.post(`/api/users`, {
+        firstName: 'Test Data First Name',
+        lastName: 'Test Data Last Name',
+        email: 'test-data@test.data',
+        role: 'editor',
+      });
+    } catch (axiosError) {
+      // check validation response
+      expect(axiosError.response.status).toBe(400);
+      expect(axiosError.response.data.statusCode).toEqual(400);
+      expect(axiosError.response.data.message).toEqual('Validation failed');
+      expect(axiosError.response.data.errors.length).toEqual(1);
+      expect(axiosError.response.data.errors[0].path).toEqual('phoneNumber');
     }
 
     // data after

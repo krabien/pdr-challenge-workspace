@@ -13,7 +13,11 @@ import {
 } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { UserDto, UserSchema } from '@pdr-challenge-workspace/shared';
+import {
+  UserDto,
+  UserSchema,
+  UserValidRoles,
+} from '@pdr-challenge-workspace/shared';
 import { UsersStoreService } from '../users-storage.service';
 import {
   ISODateOnlyAdapter,
@@ -52,7 +56,7 @@ export class CreateUserDialogComponent {
   private readonly snackBar = inject(MatSnackBar);
 
   // populate roles from the shared library as it is the single source of truth
-  readonly roles = UserSchema.shape.role.options as string[];
+  readonly roles = UserValidRoles;
 
   readonly form = this.fb.group({
     firstName: [''],
@@ -62,6 +66,25 @@ export class CreateUserDialogComponent {
     phoneNumber: [''],
     birthDate: [null as Date | null],
   });
+
+  constructor() {
+    // When role changes, clear role-dependent Zod errors so the UI reflects current requirements
+    this.form.get('role')?.valueChanges.subscribe(() => {
+      for (const name of ['phoneNumber', 'birthDate', 'role']) {
+        const ctrl = this.form.get(name);
+        if (ctrl?.hasError('zod')) {
+          const errs = { ...(ctrl.errors || {}) } as Record<string, unknown>;
+          delete errs['zod'];
+          ctrl.setErrors(Object.keys(errs).length ? errs : null);
+        }
+      }
+      if (this.form.hasError('zod')) {
+        const errs = { ...(this.form.errors || {}) } as Record<string, unknown>;
+        delete errs['zod'];
+        this.form.setErrors(Object.keys(errs).length ? errs : null);
+      }
+    });
+  }
 
   // Helpers for template to avoid TS-like casts in Angular expressions
   hasZodError(controlName?: string): boolean {

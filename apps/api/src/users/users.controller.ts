@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UserDto, UserSchema } from '@pdr-challenge-workspace/shared';
+import { UserDto, CreateUserSchema } from '@pdr-challenge-workspace/shared';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 
 @Controller('users')
@@ -9,7 +9,7 @@ export class UsersController {
 
   @Post()
   create(
-    @Body(new ZodValidationPipe(UserSchema.omit({ id: true })))
+    @Body(new ZodValidationPipe(CreateUserSchema))
     createUserDto: UserDto
   ) {
     return this.usersService.create(createUserDto);
