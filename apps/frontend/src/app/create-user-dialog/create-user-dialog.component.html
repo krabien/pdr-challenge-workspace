@@ -4,15 +4,70 @@
 </h2>
 
 <mat-dialog-content>
-  <!-- Form to create a new user will go here in a future step. -->
-  <p>
-    User creation form placeholder. We’ll add fields and logic in a follow-up
-    step.
-  </p>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="$event.preventDefault()"
+    aria-label="Create user form"
+  >
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>First name</mat-label>
+        <input matInput formControlName="firstName" placeholder="e.g. Alex" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Last name</mat-label>
+        <input matInput formControlName="lastName" placeholder="e.g. Johnson" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          placeholder="e.g. alex@example.com"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Phone number</mat-label>
+        <input
+          matInput
+          type="tel"
+          formControlName="phoneNumber"
+          placeholder="e.g. +1 555 0100"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Birth date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="birthDate" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="role" aria-label="Select role">
+          @for (r of roles; track r) {
+          <mat-option [value]="r">{{ r }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
   <button mat-stroked-button color="primary" (click)="close()">Cancel</button>
-  <!-- The submit action will be implemented later. Disabled for now. -->
-  <button mat-flat-button color="primary" disabled>Create</button>
+  <!-- The submit action will be implemented later. Keep disabled for now. -->
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="true"
+    aria-disabled="true"
+  >
+    Create
+  </button>
 </mat-dialog-actions>

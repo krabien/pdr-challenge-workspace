@@ -105,7 +105,7 @@ export class UsersListComponent implements OnDestroy {
 
   openCreateUserDialog() {
     this.dialog.open(CreateUserDialogComponent, {
-      width: '480px',
+      width: '720px',
     });
   }
 }
