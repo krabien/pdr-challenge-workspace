@@ -6,10 +6,18 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MatNativeDateModule,
+} from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { UserDto, UserSchema } from '@pdr-challenge-workspace/shared';
 import { UsersStoreService } from '../users-storage.service';
+import {
+  ISODateOnlyAdapter,
+  YYYY_MM_DD_DATE_FORMATS,
+} from './ISODateOnlyAdapter';
 
 @Component({
   selector: 'app-create-user-dialog',
@@ -26,6 +34,10 @@ import { UsersStoreService } from '../users-storage.service';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: ISODateOnlyAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: YYYY_MM_DD_DATE_FORMATS },
   ],
   templateUrl: './create-user-dialog.component.html',
   styleUrl: './create-user-dialog.component.scss',
@@ -51,7 +63,7 @@ export class CreateUserDialogComponent {
   // Helpers for template to avoid TS-like casts in Angular expressions
   hasZodError(controlName?: string): boolean {
     const ctrl = controlName ? this.form.get(controlName) : this.form;
-    return !!ctrl?.errors?.['zod'];
+    return ctrl?.errors?.['zod'];
   }
   getZodErrors(controlName?: string): string[] {
     const ctrl = controlName ? this.form.get(controlName) : this.form;
