@@ -12,7 +12,7 @@
   <div class="empty">No users found.</div>
   } @else {
   <mat-toolbar>
-    <span>
+    <span class="search-field">
       <mat-form-field appearance="outline">
         <mat-label>Search by name</mat-label>
         <input
@@ -21,9 +21,7 @@
           (input)="applyFilter($any($event.target).value)"
           aria-label="Search users by full name"
         />
-        <button matSuffix mat-icon-button aria-label="Search">
-          <mat-icon>search</mat-icon>
-        </button>
+        <mat-icon matSuffix aria-hidden="true">search</mat-icon>
       </mat-form-field>
     </span>
     <span class="toolbar-spacer"></span>

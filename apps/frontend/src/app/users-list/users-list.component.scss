@@ -26,8 +26,13 @@
   }
 
   .empty {
-    color: var(--mat-sys-on-surface-variant, #666);
+    color: var(--mat-sys-on-surface-variant);
     padding: 8px 0;
+  }
+
+  .search-field {
+    height: 100%;
+    padding-top: 5px;
   }
 
   .table-container {
@@ -49,7 +54,7 @@
     cursor: pointer;
   }
   .clickable-row:hover {
-    background-color: var(--mat-sys-surface-container, #eee);
+    background-color: var(--mat-sys-surface-container);
   }
 }
 
