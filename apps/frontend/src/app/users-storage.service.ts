@@ -26,7 +26,6 @@ export class UsersStoreService {
         tap((users) => {
           // Data is received and typed as User[] from the shared library
           this.usersSubject.next(users);
-          console.log('Users loaded:', users.length);
           this.loadingSubject.next(false);
         }),
         catchError((error) => {

@@ -18,12 +18,10 @@ export class ApiService {
   private http = inject(HttpClient);
 
   get<T>(path: string): Observable<T> {
-    console.log('GET', API_URL, path);
     return this.http.get<T>(`${API_URL}/${path}`);
   }
 
   post<T>(path: string, body: User): Observable<T> {
-    console.log('POST', API_URL, path);
     return this.http.post<T>(`${API_URL}/${path}`, body);
   }
 }
