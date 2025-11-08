@@ -5,18 +5,21 @@ import {
   ViewChild,
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { UsersStoreService } from '../users-storage.service';
 import { User } from '@pdr-challenge-workspace/shared';
 import { Subscription } from 'rxjs';
 import { UserDetailDialogComponent } from '../user-detail-dialog/user-detail-dialog.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { CreateUserDialogComponent } from '../create-user-dialog/create-user-dialog.component';
 
 @Component({
   selector: 'app-users-list',
@@ -50,7 +53,7 @@ export class UsersListComponent implements OnDestroy {
 
   readonly dataSource = new MatTableDataSource<User>([]);
 
-  // because the table is inside an @if block, we need to use a view child to get the paginator
+  // because the table is inside an @if block, we have to use a view child to get the paginator
   @ViewChild(MatPaginator)
   set paginator(p: MatPaginator | undefined) {
     if (p) {
@@ -64,7 +67,7 @@ export class UsersListComponent implements OnDestroy {
     public readonly usersService: UsersStoreService,
     private dialog: MatDialog
   ) {
-    // Configure filter to search by full name (first + last)
+    // search by full name
     this.dataSource.filterPredicate = (data: User, filter: string) => {
       const fullName = `${data.firstName} ${data.lastName}`.toLowerCase();
       return fullName.includes(filter);
@@ -89,8 +92,7 @@ export class UsersListComponent implements OnDestroy {
 
   // Called from the template on input
   applyFilter(value: string): void {
-    const normalized = (value ?? '').trim().toLowerCase();
-    this.dataSource.filter = normalized;
+    this.dataSource.filter = (value ?? '').trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

@@ -8,6 +8,4 @@ import { RouterModule } from '@angular/router';
   styleUrl: './app.scss',
   standalone: true,
 })
-export class App {
-  protected title = 'frontend';
-}
+export class App {}

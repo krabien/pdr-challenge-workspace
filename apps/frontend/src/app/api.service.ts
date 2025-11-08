@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from '@pdr-challenge-workspace/shared';
 
 // The base URL for the NestJS backend. hardcoded here for ease of use,
 // this would typically be fetched from an environment variable.
@@ -21,7 +22,7 @@ export class ApiService {
     return this.http.get<T>(`${API_URL}/${path}`);
   }
 
-  post<T>(path: string, body: any): Observable<T> {
+  post<T>(path: string, body: User): Observable<T> {
     console.log('POST', API_URL, path);
     return this.http.post<T>(`${API_URL}/${path}`, body);
   }

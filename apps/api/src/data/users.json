@@ -61,7 +61,6 @@
     "id": 8,
     "firstName": "Jack",
     "lastName": "Hanson",
-    "email": "not-an-email",
     "birthDate": "1997-06-03",
     "role": "viewer"
   },
@@ -310,7 +309,6 @@
     "id": 38,
     "firstName": "Amy",
     "lastName": "Adams",
-    "email": "not-an-email",
     "phoneNumber": "+1-950-135-3863x345",
     "birthDate": "2001-12-01",
     "role": "admin"
@@ -684,7 +682,6 @@
     "id": 82,
     "firstName": "Joy",
     "lastName": "Osborne",
-    "email": "not-an-email",
     "birthDate": "1983-10-19",
     "role": "viewer"
   },
