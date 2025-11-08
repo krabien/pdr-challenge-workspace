@@ -54,7 +54,7 @@ describe('ZodValidationPipe', () => {
       parse: jest.fn(() => {
         throw new Error('boom');
       }),
-    } as any;
+    } as never;
 
     const pipe = new ZodValidationPipe(fakeSchema);
 
