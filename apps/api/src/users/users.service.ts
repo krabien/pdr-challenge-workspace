@@ -71,8 +71,9 @@ export class UsersService {
   private persistData() {
     try {
       // ⚠️ Using writeFileSync to lock the main thread for the duration of the write operation.
-      // This will perform poorly with large datasets or many concurrent users.
-      // A real-world application would require a different approach, see workspace README.md for more details.
+      // While this works to ensure read/write consistency, it will perform poorly with
+      // large datasets or many concurrent users. A real-world application would require
+      // a different approach, see workspace README.md for more details.
       fs.writeFileSync(
         DATA_FILE_PATH,
         JSON.stringify(this.users, null, 2),
