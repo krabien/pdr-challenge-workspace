@@ -7,7 +7,7 @@
 <div mat-dialog-content>
   @if (!loadError) { @if (user$ | async; as user) {
   <dl class="details" aria-label="User details">
-    <dt>Full name</dt>
+    <dt>Full Name</dt>
     <dd>{{ user.firstName }} {{ user.lastName }}</dd>
 
     <dt>Email</dt>
@@ -16,7 +16,7 @@
     <dt>Phone</dt>
     <dd>{{ user.phoneNumber || '—' }}</dd>
 
-    <dt>Birth date</dt>
+    <dt>Birth Date</dt>
     <dd>{{ user.birthDate | date : 'mediumDate' }}</dd>
 
     <dt>Role</dt>
