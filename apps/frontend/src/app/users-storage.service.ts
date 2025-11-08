@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
 import { User, UserDto } from '@pdr-challenge-workspace/shared';
 import { ApiService } from './api.service';
@@ -12,8 +12,9 @@ export class UsersStoreService {
 
   private loadingSubject = new BehaviorSubject<boolean>(false);
   readonly loading$ = this.loadingSubject.asObservable();
+  private api = inject(ApiService);
 
-  constructor(private api: ApiService) {
+  constructor() {
     this.loadUsers();
   }
 
@@ -42,7 +43,7 @@ export class UsersStoreService {
     return this.api.post<User>('users', userDto).pipe(
       tap((newUser) => {
         // Add the new user to the local array and update the subject
-        this.usersSubject.next([newUser, ...this.usersSubject.getValue()]);
+        this.usersSubject.next([...this.usersSubject.getValue(), newUser]);
       })
     );
   }

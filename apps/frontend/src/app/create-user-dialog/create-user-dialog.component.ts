@@ -9,6 +9,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { UserDto, UserSchema } from '@pdr-challenge-workspace/shared';
+import { UsersStoreService } from '../users-storage.service';
 
 @Component({
   selector: 'app-create-user-dialog',
@@ -33,6 +34,7 @@ import { UserDto, UserSchema } from '@pdr-challenge-workspace/shared';
 export class CreateUserDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<CreateUserDialogComponent>);
   private readonly fb = inject(FormBuilder);
+  private readonly usersStore = inject(UsersStoreService);
 
   // populate roles from the shared library as it is the single source of truth
   readonly roles = UserSchema.shape.role.options as string[];
@@ -90,7 +92,7 @@ export class CreateUserDialogComponent {
       phoneNumber: (raw.phoneNumber ?? '').trim() || undefined,
       birthDate: raw.birthDate
         ? this.formatLocalDate(raw.birthDate as Date)
-        : '',
+        : undefined,
       role: raw.role as never,
     } as const;
 
@@ -103,6 +105,8 @@ export class CreateUserDialogComponent {
     for (const issue of result.error.issues) {
       const path = issue.path?.[0] as string | undefined;
       if (path && this.form.get(path)) {
+        // path is guaranteed to exist because of the issue.path check above
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const ctrl = this.form.get(path)!;
         const prev = ctrl.errors || {};
         const messages = [issue.message].concat(
@@ -125,9 +129,29 @@ export class CreateUserDialogComponent {
   }
 
   private submitAndClose(dto: UserDto) {
-    // No submit logic yet; just log to console to demonstrate validity.
-    // eslint-disable-next-line no-console
-    console.log('Validated user DTO', dto);
-    this.close();
+    // Disable the form to prevent duplicate submissions while the request is in flight
+    this.form.disable({ emitEvent: false });
+
+    this.usersStore.createUser(dto).subscribe({
+      next: () => {
+        // reload users from the backend.
+        // this is not strictly necessary as the users service handles updating the list,
+        // but it's a good example of how to handle success.
+        this.usersStore.loadUsers();
+        this.close();
+      },
+      error: (err) => {
+        // Re-enable form so the user can try again
+        this.form.enable({ emitEvent: false });
+        // Surface an error message at the form level, reusing the existing summary area
+        const prev = this.form.errors || {};
+        const message =
+          err?.error?.message || 'Failed to create user. Please try again.';
+        const messages = [message].concat(
+          (prev['zod'] as string[] | undefined) || []
+        );
+        this.form.setErrors({ ...prev, zod: messages });
+      },
+    });
   }
 }

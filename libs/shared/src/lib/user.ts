@@ -8,7 +8,8 @@ export const UserSchema = z.object({
   phoneNumber: z.string().optional(),
   birthDate: z
     .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be in YYYY-MM-DD format.'),
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be in YYYY-MM-DD format.') // ISO date-only format
+    .optional(),
   role: z.enum(['admin', 'editor', 'viewer']),
   //TODO: Mandatory Complexity: Conditional Validation Based on Role
 });
