@@ -12,6 +12,7 @@ import {
   MatNativeDateModule,
 } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserDto, UserSchema } from '@pdr-challenge-workspace/shared';
 import { UsersStoreService } from '../users-storage.service';
 import {
@@ -34,6 +35,7 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatSnackBarModule,
   ],
   providers: [
     { provide: DateAdapter, useClass: ISODateOnlyAdapter },
@@ -47,6 +49,7 @@ export class CreateUserDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<CreateUserDialogComponent>);
   private readonly fb = inject(FormBuilder);
   private readonly usersStore = inject(UsersStoreService);
+  private readonly snackBar = inject(MatSnackBar);
 
   // populate roles from the shared library as it is the single source of truth
   readonly roles = UserSchema.shape.role.options as string[];
@@ -146,6 +149,14 @@ export class CreateUserDialogComponent {
 
     this.usersStore.createUser(dto).subscribe({
       next: () => {
+        // Show success feedback
+        const fullName = `${dto.firstName} ${dto.lastName}`.trim();
+
+        this.snackBar.open(
+          fullName ? `User "${fullName}" created` : 'User created',
+          'Dismiss',
+          { duration: 4000 }
+        );
         // reload users from the backend.
         // this is not strictly necessary as the users service handles updating the list,
         // but it's a good example of how to handle success.
@@ -155,10 +166,13 @@ export class CreateUserDialogComponent {
       error: (err) => {
         // Re-enable form so the user can try again
         this.form.enable({ emitEvent: false });
-        // Surface an error message at the form level, reusing the existing summary area
-        const prev = this.form.errors || {};
+        // Determine error message
         const message =
           err?.error?.message || 'Failed to create user. Please try again.';
+        // Show error feedback
+        this.snackBar.open(message, 'Dismiss', { duration: 6000 });
+        // Surface an error message at the form level, reusing the existing summary area
+        const prev = this.form.errors || {};
         const messages = [message].concat(
           (prev['zod'] as string[] | undefined) || []
         );
