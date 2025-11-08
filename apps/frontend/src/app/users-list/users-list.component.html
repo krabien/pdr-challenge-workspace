@@ -1,6 +1,8 @@
-<div class="users-list">
-  <h2 class="title">Users (Material Table)</h2>
+<mat-toolbar class="title">
+  <span>Users</span>
+</mat-toolbar>
 
+<div class="users-list">
   @if (usersService.loading$ | async) {
   <div class="loading">
     <mat-spinner diameter="32"></mat-spinner>
@@ -9,18 +11,32 @@
   } @if (usersService.users$ | async; as users) { @if (users.length === 0) {
   <div class="empty">No users found.</div>
   } @else {
-  <div class="controls">
-    <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Search by name</mat-label>
-      <input
-        matInput
-        type="text"
-        (input)="applyFilter($any($event.target).value)"
-        placeholder="e.g. Jane Doe"
-        aria-label="Search users by full name"
-      />
-    </mat-form-field>
-  </div>
+  <mat-toolbar>
+    <span>
+      <mat-form-field appearance="outline">
+        <mat-label>Search by name</mat-label>
+        <input
+          matInput
+          type="search"
+          (input)="applyFilter($any($event.target).value)"
+          aria-label="Search users by full name"
+        />
+        <button matSuffix mat-icon-button aria-label="Search">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </span>
+    <span class="toolbar-spacer"></span>
+    <span>
+      <mat-paginator
+        [pageSize]="25"
+        [pageSizeOptions]="[5, 10, 25, 50]"
+        showFirstLastButtons
+        aria-label="Select page"
+      >
+      </mat-paginator>
+    </span>
+  </mat-toolbar>
 
   <div class="table-container">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
@@ -66,13 +82,6 @@
         (keydown.space)="openDetails(row)"
       ></tr>
     </table>
-    <mat-paginator
-      [pageSize]="25"
-      [pageSizeOptions]="[5, 10, 25, 50]"
-      showFirstLastButtons
-      aria-label="Select page"
-    >
-    </mat-paginator>
   </div>
   } }
 </div>

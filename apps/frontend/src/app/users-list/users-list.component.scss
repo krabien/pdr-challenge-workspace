@@ -1,3 +1,14 @@
+@use '@angular/material' as mat;
+
+.title {
+  @include mat.toolbar-overrides(
+    (
+      container-background-color: var(--mat-sys-primary-container),
+      container-text-color: var(--mat-sys-primary),
+    )
+  );
+}
+
 .users-list {
   padding: 16px;
 
@@ -38,4 +49,8 @@
   .clickable-row:hover {
     background-color: var(--mat-sys-surface-container, #eee);
   }
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
 }

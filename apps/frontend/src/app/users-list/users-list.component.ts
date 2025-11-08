@@ -15,6 +15,8 @@ import { UsersStoreService } from '../users-storage.service';
 import { User } from '@pdr-challenge-workspace/shared';
 import { Subscription } from 'rxjs';
 import { UserDetailDialogComponent } from '../user-detail-dialog/user-detail-dialog.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-users-list',
@@ -29,6 +31,8 @@ import { UserDetailDialogComponent } from '../user-detail-dialog/user-detail-dia
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
+    MatToolbarModule,
+    MatIconModule,
   ],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.scss',
