@@ -1,6 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
 import { ZodValidationPipe } from './zod-validation.pipe';
-import { z } from 'zod';
+import { z, ZodError } from 'zod';
 
 describe('ZodValidationPipe', () => {
   it('returns the original value when validation succeeds', () => {
@@ -18,7 +18,7 @@ describe('ZodValidationPipe', () => {
     const schema = z.object({ name: z.string() });
     const pipe = new ZodValidationPipe(schema);
 
-    const invalidPayload = { name: 123 } as any; // invalid type
+    const invalidPayload = { name: 123 }; // invalid type
 
     try {
       pipe.transform(invalidPayload);
@@ -28,7 +28,7 @@ describe('ZodValidationPipe', () => {
       const err = e as BadRequestException;
 
       // The pipe builds a custom response object
-      const response = err.getResponse() as any;
+      const response = err.getResponse() as ZodError;
       expect(response).toEqual(
         expect.objectContaining({
           statusCode: 400,
@@ -41,7 +41,7 @@ describe('ZodValidationPipe', () => {
         expect.arrayContaining([
           expect.objectContaining({
             path: 'name',
-            // Zod default message for wrong type contains 'Expected string'
+            // Zod default message for the wrong type contains 'Expected string'
             message: expect.stringContaining('Expected string'),
           }),
         ])

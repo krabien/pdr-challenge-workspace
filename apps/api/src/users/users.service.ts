@@ -56,7 +56,7 @@ export class UsersService {
     }
   }
 
-  // WARNING: This is a very simple implementation. In a real world application,
+  // WARNING: This is a very simple implementation. In a real-world application,
   // more care should be taken to avoid collisions with existing IDs.
   // See workspace README.md for more details.
   private nextId(): number {

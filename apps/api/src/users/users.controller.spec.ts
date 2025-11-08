@@ -38,7 +38,7 @@ describe('UsersController', () => {
     const created = { id: 1, ...dto };
     (usersService.create as jest.Mock).mockReturnValue(created);
 
-    const result = controller.create(dto as any);
+    const result = controller.create(dto);
 
     expect(usersService.create).toHaveBeenCalledWith(dto);
     expect(result).toEqual(created);
