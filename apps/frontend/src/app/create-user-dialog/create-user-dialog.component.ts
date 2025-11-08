@@ -117,7 +117,7 @@ export class CreateUserDialogComponent {
     for (const issue of result.error.issues) {
       const path = issue.path?.[0] as string | undefined;
       if (path && this.form.get(path)) {
-        // path is guaranteed to exist because of the issue.path check above
+        // path is guaranteed to exist because of the check above
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const ctrl = this.form.get(path)!;
         const prev = ctrl.errors || {};
