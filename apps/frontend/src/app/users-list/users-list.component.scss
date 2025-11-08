@@ -10,7 +10,7 @@
 }
 
 .users-list {
-  padding: 16px;
+  text-align: center;
 
   .title {
     margin: 0 0 12px;
@@ -22,6 +22,7 @@
     align-items: center;
     gap: 12px;
     color: var(--mat-sys-on-surface);
+    margin: 90px;
   }
 
   .empty {
@@ -30,6 +31,7 @@
   }
 
   .table-container {
+    margin: 0 16px;
     overflow: auto;
     max-width: 100%;
   }
