@@ -1,5 +1,12 @@
 <mat-toolbar class="title">
   <span>Users</span>
+  <span class="toolbar-spacer"></span>
+  <span>
+    <a mat-button color="primary" (click)="openCreateUserDialog()">
+      <mat-icon aria-hidden="true">person_add</mat-icon>
+      New User
+    </a>
+  </span>
 </mat-toolbar>
 
 <div class="users-list">

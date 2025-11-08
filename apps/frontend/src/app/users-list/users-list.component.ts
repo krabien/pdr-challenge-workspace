@@ -27,12 +27,14 @@ import { CreateUserDialogComponent } from '../create-user-dialog/create-user-dia
   imports: [
     // Angular
     AsyncPipe,
+    RouterModule,
     // Angular Material
     MatTableModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
     MatDialogModule,
     MatToolbarModule,
     MatIconModule,
@@ -82,7 +84,6 @@ export class UsersListComponent implements OnDestroy {
   }
 
   openDetails(user: User): void {
-    console.log(`clicked ${user}`);
     if (!user?.id) return;
     this.dialog.open(UserDetailDialogComponent, {
       data: { userId: user.id },
@@ -100,5 +101,11 @@ export class UsersListComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  openCreateUserDialog() {
+    this.dialog.open(CreateUserDialogComponent, {
+      width: '480px',
+    });
   }
 }
