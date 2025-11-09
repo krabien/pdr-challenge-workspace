@@ -1,5 +1,4 @@
 @use '@angular/material' as mat;
-@use '../global-overrides.scss' as globals;
 
 button- {
   @include mat.fab-overrides(
@@ -64,7 +63,7 @@ button- {
     margin-top: -50%;
   }
   .eye:hover {
-    transform: scale(1,0);
+    transform: scale(1, 0);
   }
 
   .left-eye {
@@ -84,9 +83,9 @@ button- {
     background: $features-color;
     border-radius: 0 0 10000px 10000px;
     mask: radial-gradient(
-        calc(var(--c) * 1%) 100% at 50% calc(-100% * cos(asin(50 / var(--c)))),
-        #fff0 calc(100% - 1px),
-        #000
+      calc(var(--c) * 1%) 100% at 50% calc(-100% * cos(asin(50 / var(--c)))),
+      #fff0 calc(100% - 1px),
+      #000
     );
   }
 
@@ -99,9 +98,9 @@ button- {
     background: $tongue-color;
     border-radius: 0 0 10000px 10000px;
     mask: radial-gradient(
-        calc(var(--c) * 1%) 100% at 50% calc(-100% * cos(asin(50 / var(--c)))),
-        #fff0 calc(100% - 1px),
-        #000
+      calc(var(--c) * 1%) 100% at 50% calc(-100% * cos(asin(50 / var(--c)))),
+      #fff0 calc(100% - 1px),
+      #000
     );
     margin-top: 45%;
     text-align: center;
@@ -117,16 +116,31 @@ button- {
   }
 
   @keyframes blink {
-    0%  { transform: scale(1,1); }
-    49% { transform: scale(1,1); }
-    50% { transform: scale(1,0); }
-    51% { transform: scale(1,1); }
-    97% { transform: scale(1,1); }
-    98% { transform: scale(1,0); }
-    99% { transform: scale(1,1); }
-    100%{ transform: scale(1,0); }
+    0% {
+      transform: scale(1, 1);
+    }
+    49% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1, 0);
+    }
+    51% {
+      transform: scale(1, 1);
+    }
+    97% {
+      transform: scale(1, 1);
+    }
+    98% {
+      transform: scale(1, 0);
+    }
+    99% {
+      transform: scale(1, 1);
+    }
+    100% {
+      transform: scale(1, 0);
+    }
   }
-
 }
 
 // magic number: mobile breakpoint. unfortunately, Angular Material doesn't expose the breakpoints in a variable.
