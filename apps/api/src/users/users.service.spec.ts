@@ -45,6 +45,9 @@ describe('UsersService', () => {
       providers: [UsersService],
     }).compile();
 
+    // Initialize lifecycle hooks (triggers UsersService.onModuleInit)
+    await module.init();
+
     service = module.get<UsersService>(UsersService);
   });
 

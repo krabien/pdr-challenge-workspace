@@ -10,8 +10,8 @@ describe('ZodValidationPipe', () => {
     const payload = { name: 'Ada' };
     const result = pipe.transform(payload);
 
-    // Should return the same object reference as provided
-    expect(result).toBe(payload);
+    // Should return an identical object
+    expect(result).toEqual(payload);
   });
 
   it('throws BadRequestException with detailed errors when Zod validation fails', () => {

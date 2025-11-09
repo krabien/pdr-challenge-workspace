@@ -72,7 +72,7 @@ describe('UsersController', () => {
     };
     (usersService.findOne as jest.Mock).mockReturnValue(user);
 
-    const result = controller.findOne('42');
+    const result = controller.findOne(42);
 
     expect(usersService.findOne).toHaveBeenCalledWith(42);
     expect(result).toEqual(user);
@@ -83,6 +83,6 @@ describe('UsersController', () => {
       throw new NotFoundException('User not found');
     });
 
-    expect(() => controller.findOne('999')).toThrow(NotFoundException);
+    expect(() => controller.findOne(999)).toThrow(NotFoundException);
   });
 });
