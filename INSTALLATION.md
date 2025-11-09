@@ -93,10 +93,11 @@ FRONTEND_URL=http://localhost:4200 NODE_ENV=production PORT=3000 node dist/apps/
 ### Testing & Linting
 
 ```bash
-# Run unit tests for a project
+# Run unit tests for api (frontend doesn't have any tests at this time)
 npx nx test api
-npx nx test frontend
-
+# Run e2e tests for frontend
+ npx nx e2e api-e2e
+ 
 # Lint a project
 npx nx lint api
 npx nx lint frontend
