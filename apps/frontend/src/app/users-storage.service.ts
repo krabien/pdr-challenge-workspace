@@ -33,7 +33,7 @@ export class UsersStoreService {
           this.loadingSubject.next(false);
           // Optionally handle error state
           return of([]);
-        })
+        }),
       )
       .subscribe();
   }
@@ -43,7 +43,7 @@ export class UsersStoreService {
       tap((newUser) => {
         // Add the new user to the local array and update the subject
         this.usersSubject.next([...this.usersSubject.getValue(), newUser]);
-      })
+      }),
     );
   }
 }

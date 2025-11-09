@@ -148,14 +148,14 @@ export class CreateUserDialogComponent {
         const ctrl = this.form.get(path)!;
         const prev = ctrl.errors || {};
         const messages = [issue.message].concat(
-          (prev['zod'] as string[] | undefined) || []
+          (prev['zod'] as string[] | undefined) || [],
         );
         ctrl.setErrors({ ...prev, zod: messages });
         ctrl.markAsTouched();
       } else {
         const prev = this.form.errors || {};
         const messages = [issue.message].concat(
-          (prev['zod'] as string[] | undefined) || []
+          (prev['zod'] as string[] | undefined) || [],
         );
         this.form.setErrors({ ...prev, zod: messages });
       }
@@ -178,7 +178,7 @@ export class CreateUserDialogComponent {
         this.snackBar.open(
           fullName ? `User "${fullName}" created` : 'User created',
           'Dismiss',
-          { duration: 4000 }
+          { duration: 4000 },
         );
         // reload users from the backend.
         // this is not strictly necessary as the users service handles updating the list,
@@ -197,7 +197,7 @@ export class CreateUserDialogComponent {
         // Surface an error message at the form level, reusing the existing summary area
         const prev = this.form.errors || {};
         const messages = [message].concat(
-          (prev['zod'] as string[] | undefined) || []
+          (prev['zod'] as string[] | undefined) || [],
         );
         this.form.setErrors({ ...prev, zod: messages });
       },

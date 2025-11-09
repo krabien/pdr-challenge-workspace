@@ -37,7 +37,7 @@ describe('UsersService', () => {
   beforeEach(async () => {
     // Set up fs mocks for each test
     (fs.readFileSync as jest.Mock).mockReturnValue(
-      JSON.stringify(initialUsers)
+      JSON.stringify(initialUsers),
     );
     (fs.writeFileSync as jest.Mock).mockClear();
 

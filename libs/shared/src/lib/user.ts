@@ -19,7 +19,7 @@ const BaseUserSchema = z.object({
 // Shared refinement logic applied to both full and create schemas
 const roleBasedRefinement = (
   data: z.infer<typeof BaseUserSchema>,
-  ctx: z.RefinementCtx
+  ctx: z.RefinementCtx,
 ) => {
   const role = data.role;
   const hasPhone = !!data.phoneNumber && data.phoneNumber.trim().length > 0;
@@ -64,7 +64,7 @@ export type User = z.infer<typeof UserSchema>;
  * Keeps the same conditional validation rules as UserSchema.
  */
 export const CreateUserSchema = BaseUserSchema.omit({ id: true }).superRefine(
-  roleBasedRefinement
+  roleBasedRefinement,
 );
 
 /**

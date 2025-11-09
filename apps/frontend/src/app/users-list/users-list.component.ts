@@ -79,7 +79,7 @@ export class UsersListComponent implements OnDestroy {
     this.sub.add(
       this.usersService.users$.subscribe((users) => {
         this.dataSource.data = users ?? [];
-      })
+      }),
     );
   }
 

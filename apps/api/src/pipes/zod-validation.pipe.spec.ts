@@ -33,7 +33,7 @@ describe('ZodValidationPipe', () => {
         expect.objectContaining({
           statusCode: 400,
           message: 'Validation failed',
-        })
+        }),
       );
       expect(Array.isArray(response.errors)).toBe(true);
       // One of the errors should reference the 'name' path
@@ -44,7 +44,7 @@ describe('ZodValidationPipe', () => {
             // Zod default message for the wrong type contains 'Expected string'
             message: expect.stringContaining('Expected string'),
           }),
-        ])
+        ]),
       );
     }
   });

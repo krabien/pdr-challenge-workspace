@@ -41,7 +41,7 @@ export class UserDetailDialogComponent {
         console.error('Failed to load user', err);
         this.loadError = true;
         return of(null);
-      })
+      }),
     );
   }
 

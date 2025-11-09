@@ -8,11 +8,11 @@
   >
     <!-- Optional summary for non-field errors -->
     @if (hasZodError()) {
-    <div class="error-summary" role="alert">
-      @for (msg of getZodErrors(); track $index) {
-      <div>{{ msg }}</div>
-      }
-    </div>
+      <div class="error-summary" role="alert">
+        @for (msg of getZodErrors(); track $index) {
+          <div>{{ msg }}</div>
+        }
+      </div>
     }
 
     <div class="form-grid">
@@ -20,10 +20,11 @@
         <mat-label>First name</mat-label>
         <input matInput formControlName="firstName" />
         <mat-error>
-          @if (hasZodError('firstName')) { @for (m of getZodErrors('firstName');
-          track $index) {
-          <div>{{ m }}</div>
-          } }
+          @if (hasZodError('firstName')) {
+            @for (m of getZodErrors('firstName'); track $index) {
+              <div>{{ m }}</div>
+            }
+          }
         </mat-error>
       </mat-form-field>
 
@@ -31,10 +32,11 @@
         <mat-label>Last name</mat-label>
         <input matInput formControlName="lastName" />
         <mat-error>
-          @if (hasZodError('lastName')) { @for (m of getZodErrors('lastName');
-          track $index) {
-          <div>{{ m }}</div>
-          } }
+          @if (hasZodError('lastName')) {
+            @for (m of getZodErrors('lastName'); track $index) {
+              <div>{{ m }}</div>
+            }
+          }
         </mat-error>
       </mat-form-field>
 
@@ -46,10 +48,11 @@
         <mat-label>Email</mat-label>
         <input matInput type="email" formControlName="email" />
         <mat-error>
-          @if (hasZodError('email')) { @for (m of getZodErrors('email'); track
-          $index) {
-          <div>{{ m }}</div>
-          } }
+          @if (hasZodError('email')) {
+            @for (m of getZodErrors('email'); track $index) {
+              <div>{{ m }}</div>
+            }
+          }
         </mat-error>
       </mat-form-field>
 
@@ -57,10 +60,11 @@
         <mat-label>Phone number</mat-label>
         <input matInput type="tel" formControlName="phoneNumber" />
         <mat-error>
-          @if (hasZodError('phoneNumber')) { @for (m of
-          getZodErrors('phoneNumber'); track $index) {
-          <div>{{ m }}</div>
-          } }
+          @if (hasZodError('phoneNumber')) {
+            @for (m of getZodErrors('phoneNumber'); track $index) {
+              <div>{{ m }}</div>
+            }
+          }
         </mat-error>
       </mat-form-field>
 
@@ -70,10 +74,11 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error>
-          @if (hasZodError('birthDate')) { @for (m of getZodErrors('birthDate');
-          track $index) {
-          <div>{{ m }}</div>
-          } }
+          @if (hasZodError('birthDate')) {
+            @for (m of getZodErrors('birthDate'); track $index) {
+              <div>{{ m }}</div>
+            }
+          }
         </mat-error>
       </mat-form-field>
 
@@ -81,14 +86,15 @@
         <mat-label>Role</mat-label>
         <mat-select formControlName="role" aria-label="Select role">
           @for (r of roles; track r) {
-          <mat-option [value]="r">{{ r }}</mat-option>
+            <mat-option [value]="r">{{ r }}</mat-option>
           }
         </mat-select>
         <mat-error>
-          @if (hasZodError('role')) { @for (m of getZodErrors('role'); track
-          $index) {
-          <div>{{ m }}</div>
-          } }
+          @if (hasZodError('role')) {
+            @for (m of getZodErrors('role'); track $index) {
+              <div>{{ m }}</div>
+            }
+          }
         </mat-error>
       </mat-form-field>
     </div>
@@ -96,10 +102,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-stroked-button color="primary" type="button" (click)="close()">
-    Cancel
-  </button>
-  <button mat-flat-button color="primary" type="button" (click)="onSubmit()">
-    Create
-  </button>
+  <button mat-stroked-button type="button" (click)="close()">Cancel</button>
+  <button mat-flat-button type="button" (click)="onSubmit()">Create</button>
 </mat-dialog-actions>

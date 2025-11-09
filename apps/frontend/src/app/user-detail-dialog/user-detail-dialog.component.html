@@ -1,34 +1,39 @@
 <h2 mat-dialog-title>
-  @if (user$ | async; as user) {Details: {{ user.firstName }}
-  {{ user.lastName }}
-  } @else { User details }
+  @if (user$ | async; as user) {
+    Details: {{ user.firstName }}
+    {{ user.lastName }}
+  } @else {
+    User details
+  }
 </h2>
 
 <div mat-dialog-content>
-  @if (!loadError) { @if (user$ | async; as user) {
-  <dl class="details" aria-label="User details">
-    <dt>Full Name</dt>
-    <dd>{{ user.firstName }} {{ user.lastName }}</dd>
+  @if (!loadError) {
+    @if (user$ | async; as user) {
+      <dl class="details" aria-label="User details">
+        <dt>Full Name</dt>
+        <dd>{{ user.firstName }} {{ user.lastName }}</dd>
 
-    <dt>Email</dt>
-    <dd>{{ user.email || '—' }}</dd>
+        <dt>Email</dt>
+        <dd>{{ user.email || '—' }}</dd>
 
-    <dt>Phone</dt>
-    <dd>{{ user.phoneNumber || '—' }}</dd>
+        <dt>Phone</dt>
+        <dd>{{ user.phoneNumber || '—' }}</dd>
 
-    <dt>Birth Date</dt>
-    <dd>{{ (user.birthDate | date : 'mediumDate') || '—'  }}</dd>
+        <dt>Birth Date</dt>
+        <dd>{{ (user.birthDate | date: 'mediumDate') || '—' }}</dd>
 
-    <dt>Role</dt>
-    <dd class="role">{{ user.role }}</dd>
-  </dl>
+        <dt>Role</dt>
+        <dd class="role">{{ user.role }}</dd>
+      </dl>
+    } @else {
+      <div class="loading">
+        <mat-spinner diameter="32"></mat-spinner>
+        <span>Loading user…</span>
+      </div>
+    }
   } @else {
-  <div class="loading">
-    <mat-spinner diameter="32"></mat-spinner>
-    <span>Loading user…</span>
-  </div>
-  } } @else {
-  <div class="error">Failed to load user. Please try again.</div>
+    <div class="error">Failed to load user. Please try again.</div>
   }
 </div>
 

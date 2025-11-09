@@ -2,7 +2,7 @@
   <span>Users</span>
   <span class="toolbar-spacer"></span>
   <span>
-    <button mat-button color="primary" (click)="openCreateUserDialog()">
+    <button mat-button (click)="openCreateUserDialog()">
       <mat-icon aria-hidden="true">person_add</mat-icon>
       New User
     </button>
@@ -11,80 +11,83 @@
 
 <div class="users-list">
   @if (usersService.loading$ | async) {
-  <div class="loading">
-    <mat-spinner diameter="32"></mat-spinner>
-    <span>Loading users…</span>
-  </div>
-  } @if (usersService.users$ | async; as users) { @if (users.length === 0) {
-  <div class="empty">No users found.</div>
-  } @else {
-  <mat-toolbar>
-    <span class="search-field">
-      <mat-form-field appearance="outline">
-        <mat-label>Search by name</mat-label>
-        <input
-          matInput
-          type="search"
-          (input)="applyFilter($any($event.target).value)"
-          aria-label="Search users by full name"
-        />
-        <mat-icon matSuffix aria-hidden="true">search</mat-icon>
-      </mat-form-field>
-    </span>
-    <span class="toolbar-spacer"></span>
-    <span>
-      <mat-paginator
-        [pageSize]="25"
-        [pageSizeOptions]="[5, 10, 25, 50]"
-        showFirstLastButtons
-        aria-label="Select page"
-      >
-      </mat-paginator>
-    </span>
-  </mat-toolbar>
+    <div class="loading">
+      <mat-spinner diameter="32"></mat-spinner>
+      <span>Loading users…</span>
+    </div>
+  }
+  @if (usersService.users$ | async; as users) {
+    @if (users.length === 0) {
+      <div class="empty">No users found.</div>
+    } @else {
+      <mat-toolbar>
+        <span class="search-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Search by name</mat-label>
+            <input
+              matInput
+              type="search"
+              (input)="applyFilter($any($event.target).value)"
+              aria-label="Search users by full name"
+            />
+            <mat-icon matSuffix aria-hidden="true">search</mat-icon>
+          </mat-form-field>
+        </span>
+        <span class="toolbar-spacer"></span>
+        <span>
+          <mat-paginator
+            [pageSize]="25"
+            [pageSizeOptions]="[5, 10, 25, 50]"
+            showFirstLastButtons
+            aria-label="Select page"
+          >
+          </mat-paginator>
+        </span>
+      </mat-toolbar>
 
-  <div class="table-container">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let user">{{ user.id }}</td>
-      </ng-container>
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+          </ng-container>
 
-      <!-- First Name Column -->
-      <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef>First Name</th>
-        <td mat-cell *matCellDef="let user">{{ user.firstName }}</td>
-      </ng-container>
+          <!-- First Name Column -->
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef>First Name</th>
+            <td mat-cell *matCellDef="let user">{{ user.firstName }}</td>
+          </ng-container>
 
-      <!-- Last Name Column -->
-      <ng-container matColumnDef="lastName">
-        <th mat-header-cell *matHeaderCellDef>Last Name</th>
-        <td mat-cell *matCellDef="let user">{{ user.lastName }}</td>
-      </ng-container>
+          <!-- Last Name Column -->
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef>Last Name</th>
+            <td mat-cell *matCellDef="let user">{{ user.lastName }}</td>
+          </ng-container>
 
-      <!-- Email Column -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>Email</th>
-        <td mat-cell *matCellDef="let user">{{ user.email || '—' }}</td>
-      </ng-container>
+          <!-- Email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let user">{{ user.email || '—' }}</td>
+          </ng-container>
 
-      <!-- Role Column -->
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef>Role</th>
-        <td mat-cell *matCellDef="let user">{{ user.role }}</td>
-      </ng-container>
+          <!-- Role Column -->
+          <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef>Role</th>
+            <td mat-cell *matCellDef="let user">{{ user.role }}</td>
+          </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
-        mat-row
-        *matRowDef="let row; columns: displayedColumns"
-        class="clickable-row"
-        role="button"
-        tabindex="0"
-        (click)="openDetails(row)"
-      ></tr>
-    </table>
-  </div>
-  } }
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            class="clickable-row"
+            role="button"
+            tabindex="0"
+            (click)="openDetails(row)"
+          ></tr>
+        </table>
+      </div>
+    }
+  }
 </div>

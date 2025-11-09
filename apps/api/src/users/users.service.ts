@@ -9,7 +9,7 @@ const DATA_FILE_PATH = path.join(
   'api',
   'src',
   'data',
-  'users.json'
+  'users.json',
 );
 
 @Injectable()
@@ -77,7 +77,7 @@ export class UsersService {
       fs.writeFileSync(
         DATA_FILE_PATH,
         JSON.stringify(this.users, null, 2),
-        'utf-8'
+        'utf-8',
       );
     } catch (error) {
       Logger.error('Failed to write to users.json:', error);

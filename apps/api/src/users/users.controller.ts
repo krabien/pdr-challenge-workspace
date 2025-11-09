@@ -17,7 +17,7 @@ export class UsersController {
   @Post()
   create(
     @Body(new ZodValidationPipe(CreateUserSchema))
-    createUserDto: UserDto
+    createUserDto: UserDto,
   ) {
     return this.usersService.create(createUserDto);
   }
