@@ -15,8 +15,7 @@
       <mat-spinner diameter="32"></mat-spinner>
       <span>Loading users…</span>
     </div>
-  }
-  @if (usersService.users$ | async; as users) {
+  } @else if (usersService.users$ | async; as users) {
     @if (users.length === 0) {
       <div class="empty">No users found.</div>
     } @else {
