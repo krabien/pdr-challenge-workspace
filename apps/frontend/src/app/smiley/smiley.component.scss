@@ -146,6 +146,6 @@ button- {
 // magic number: mobile breakpoint. unfortunately, Angular Material doesn't expose the breakpoints in a variable.
 @media (width < 600px) {
   .smiley-container {
-    height: calc(100vh - $material-breakpoint-mobile);
+    height: calc(100vh - var(--mat-toolbar-mobile-height));
   }
 }
