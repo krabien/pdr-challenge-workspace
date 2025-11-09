@@ -26,8 +26,10 @@
   }
 
   .empty {
-    color: var(--mat-sys-on-surface-variant);
+    background-color: var(--mat-sys-error-container);
+    color: var(--mat-sys-on-error-container);
     padding: 8px 0;
+    margin: 16px;
   }
 
   .search-field {
