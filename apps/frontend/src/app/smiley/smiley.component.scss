@@ -1,0 +1,135 @@
+@use '@angular/material' as mat;
+
+button- {
+  @include mat.fab-overrides(
+    (
+      container-color: var(--mat-sys-tertiary-container),
+      foreground-color: var(--mat-sys-tertiary),
+    )
+  );
+}
+
+.title {
+  @include mat.toolbar-overrides(
+    (
+      container-background-color: var(--mat-sys-secondary-container),
+      container-text-color: var(--mat-sys-secondary),
+    )
+  );
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.smiley-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - var(--mat-toolbar-standard-height));
+  position: relative;
+
+  $features-color: #715318;
+  $tongue-color: #da7480;
+  $tongue-color-darker: #ce5356;
+  $face-color: #f9d67a;
+
+  #smiley-face {
+    width: min(90vw, 90vh);
+    height: min(90vw, 90vh);
+    background-color: #f9d67a;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    display: grid;
+
+    grid-template-columns: 25% 15% 20% 15% 25%;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+
+    justify-items: center;
+    align-items: center;
+  }
+
+  #smiley-face:hover {
+    transform: scale(1.05);
+  }
+
+  .eye {
+    width: 90%;
+    height: 47%;
+    background-color: $features-color;
+    border-radius: 50%;
+    animation: blink 10s infinite;
+    margin-top: -50%;
+  }
+  .eye:hover {
+    transform: scale(1,0);
+  }
+
+  .left-eye {
+    grid-area: 2 / 2 / 4 / 3;
+  }
+
+  .right-eye {
+    grid-area: 2 / 4 / 4 / 4;
+  }
+
+  /* negative curve technique: https://css-shape.com/curved-rectangle/ */
+  .mouth {
+    grid-area: 3 / 2 / 6 / 5;
+    --c: 83; /* control the upper curvature (a percentage value without unit bigger than 50%)*/
+    width: 120%;
+    height: 42%;
+    background: $features-color;
+    border-radius: 0 0 10000px 10000px;
+    mask: radial-gradient(
+        calc(var(--c) * 1%) 100% at 50% calc(-100% * cos(asin(50 / var(--c)))),
+        #fff0 calc(100% - 1px),
+        #000
+    );
+  }
+
+  .tongue {
+    grid-area: 3 / 2 / 6 / 5;
+    --c: 160;
+    width: 65%;
+    height: 60%;
+    aspect-ratio: 3/2;
+    background: $tongue-color;
+    border-radius: 0 0 10000px 10000px;
+    mask: radial-gradient(
+        calc(var(--c) * 1%) 100% at 50% calc(-100% * cos(asin(50 / var(--c)))),
+        #fff0 calc(100% - 1px),
+        #000
+    );
+    margin-top: 45%;
+    text-align: center;
+  }
+
+  .tongue-line {
+    display: inline-block;
+    height: 70%;
+    width: 10%;
+    background-color: $tongue-color-darker;
+    z-index: 3;
+    border-radius: 0 0 100px 100px;
+  }
+
+  @keyframes blink {
+    0%  { transform: scale(1,1); }
+    49% { transform: scale(1,1); }
+    50% { transform: scale(1,0); }
+    51% { transform: scale(1,1); }
+    97% { transform: scale(1,1); }
+    98% { transform: scale(1,0); }
+    99% { transform: scale(1,1); }
+    100%{ transform: scale(1,0); }
+  }
+
+}
+
+@media (width < 600px) {
+  .smiley-container {
+    height: calc(100vh - var(--mat-toolbar-mobile-height));
+  }
+}
