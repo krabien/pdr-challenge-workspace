@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+
+// Hide page size and range label on small screens
+@media (width <= 800px) {
+  .mat-mdc-paginator-page-size {
+    display: none !important;
+  }
+}
+
+@media (width <= 600px) {
+  .mat-mdc-paginator-range-label {
+    display: none !important;
+  }
+}
