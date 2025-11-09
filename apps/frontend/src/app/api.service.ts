@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '@pdr-challenge-workspace/shared';
 
 // The base URL for the NestJS backend. hardcoded here for ease of use,
-// this would typically be fetched from an environment variable.
+// this would typically be fetched from a compile-time configuration.
 const API_URL = 'http://localhost:3000/api';
 
 @Injectable({
