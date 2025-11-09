@@ -43,3 +43,17 @@ For installation instructions, see [INSTALLATION.md](INSTALLATION.md).
 - Doing pagination only in the frontend misses out on potential beneficial effects on network and database usage.
   A more scalable solution would be to paginate requests to the backend, which can then in turn paginate its requests to the database.
   This, however, will become most useful once we reach a scale at which we decide to use a database for persistence.
+
+
+--- 
+
+## Potential Future Improvements / Scalability
+
+- switch from `writeFileSync` to a more robust variant, e.g. one of the solutions proposed above
+- add authorization/authentication to API
+- Rate limiting: `@nestjs/throttler` for any public endpoints
+- Compression for responses
+- Use `@nestjs/config` with a Zod schema (since we already use Zod) to validate env vars at startup
+- add API versioning *(might not be necessary in our monorepo setup)*
+- add Swagger/OpenAPI *(might not be necessary in our monorepo setup)*
+
