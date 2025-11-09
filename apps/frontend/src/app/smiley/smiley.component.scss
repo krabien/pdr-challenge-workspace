@@ -1,14 +1,5 @@
 @use '@angular/material' as mat;
 
-button- {
-  @include mat.fab-overrides(
-    (
-      container-color: var(--mat-sys-tertiary-container),
-      foreground-color: var(--mat-sys-tertiary),
-    )
-  );
-}
-
 .title {
   @include mat.toolbar-overrides(
     (
