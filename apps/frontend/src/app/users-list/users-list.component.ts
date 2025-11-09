@@ -71,7 +71,8 @@ export class UsersListComponent implements OnDestroy {
   constructor() {
     // search by full name
     this.dataSource.filterPredicate = (data: User, filter: string) => {
-      const fullName = `${data.firstName} ${data.lastName}`.toLowerCase();
+      const fullName =
+        `${data.firstName || ''} ${data.lastName || ''}`.toLowerCase();
       return fullName.includes(filter);
     };
 
