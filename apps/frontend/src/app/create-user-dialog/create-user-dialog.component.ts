@@ -62,7 +62,7 @@ export class CreateUserDialogComponent {
     firstName: [''],
     lastName: [''],
     email: [''],
-    role: [[this.roles.includes('viewer') ? 'viewer' : this.roles[0]]],
+    role: [this.roles[this.roles.length - 1]],
     phoneNumber: [''],
     birthDate: [null as Date | null],
   });
