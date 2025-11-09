@@ -1,23 +1,46 @@
 # PDR.cloud Coding Challenge Workspace
 
-### General Notes
+For installation instructions, see [INSTALLATION.md](INSTALLATION.md).
 
-- AI estimated this at 10-16 hours for someone experienced with all the technologies.I think I pretty much stayed within that time frame.
-- troubleshooting Nx and Angular took quite some time… see Angular vs TypeScript workspaces problems: https://github.com/nrwl/nx/issues/28322#issuecomment-2402623507. It’s still not working properly, I can’t use the Angular CLI for anything... I took it as an exercise in creating everything manually.
-- setting up the monorepo failed twice, but worked the third time without any changes
+---
 
-#### Backend
+## General Notes
 
-- the data in users.json was not valid, I pre-processed it as seemed reasonable. In a real-world scenario, I would check with the data owner first.
-  - replaced misspelled birthDtae with birthDate in some places
-  - removed invalid birthDate
-  - removed invalid-number phone numbers
-- flat file storage is not going to perform well for multiple users accessing the system concurrently. ideally, we would switch to a database in that scenario. but assuming we have to stick with the file approach for some reason, here are some ideas:
-  - id should be a UUID instead of a number. that way even in a complex concurrent system (i.e. using load-balancing) collisions are practically impossible.
-  - newly created users should be collected in an in-memory cache and written to the file periodically. in that scenario, file writes should be handled by an additional service. note that in this scenario, special care should be taken to return error feedback to the user if the write operation fails.
-- in most real-world scenarios, no backend calls should be possible without proper authentication and authorization. That’s beyond the scope of this exercise, however.
-- I’ve provided a few AI-generated (and checked by me) unit and e2e tests which was out of scope of the assignment, but I like to use them during development, so I didn’t see any harm in committing them.
+- AI estimated this at 10-16 hours for someone experienced with all the technologies. Without much experience with both Nx and Zod, it took me about 18 hours.
+- I made a few assumptions about the __scope of the assignment__ to minimize friction.
+- Other __assumptions__ include:
+  - Data will only be modified using the api going forward - i.e. no special robustness against invalid new data is needed
+  - The app is mostly intended for __large screens__ - some responsiveness is included, but it’s not optimized for small screens
 
-#### Frontend
+---
 
-- doing pagination only in the frontend does not have any beneficial effects on network and database usage. a more scalable solution would be to paginate requests to the backend, which can then in turn paginate its requests to the database. this, however, will become most useful once we reach a scale at which we decide to use a database for persistence.
+## Backend
+
+- The data in `users.json` was not valid. I pre-processed it as seemed reasonable. In a real-world scenario, I would check with the data owner first.
+  - replaced misspelled `birthDtae` with `birthDate` in some places
+  - removed invalid `birthDate` value
+  - removed `invalid-number` values in `phoneNumber` field
+- I’ve provided a few __unit and e2e tests__ which could be considered out of scope of the assignment. 
+  But I like to use them during development, so I left them in to show my process.
+- Flat file storage is not going to perform well for multiple users accessing the system concurrently. 
+  ideally, we would switch to a database in that scenario. but assuming we have to stick with the file approach for some reason, here are some ideas:
+  - `id` should be a `UUID` instead of a `number`. that way even in a complex concurrent system (i.e. using load-balancing) collisions are practically impossible.
+  - newly created users should be collected in an __in-memory cache__ and written to the file periodically. 
+    in that scenario, file writes should be handled by an additional service.
+  - alternatively, the in-memory cache might be implemented using `RxJs` features such as `Subject` and `ConcatMap`.
+    That was not implemented because the frontend currently relies on blocking writes (it fetches the users list after posting a new one).
+    So a change here would require broader architectural considerations.
+  - Note that with both caching approaches described above, special care has to be taken
+    to return error feedback to the user if the write operation fails.
+- in most real-world scenarios, no backend calls should be possible without __authentication__ and __authorization__. 
+  I considered that beyond the scope of this exercise.
+- To avoid unnecessary data transmission, separate DTOs could be used for the `/users` and `/users/:id` routes.
+
+
+---
+
+## Frontend
+
+- Doing pagination only in the frontend misses out on potential beneficial effects on network and database usage. 
+  A more scalable solution would be to paginate requests to the backend, which can then in turn paginate its requests to the database.
+  This, however, will become most useful once we reach a scale at which we decide to use a database for persistence.
