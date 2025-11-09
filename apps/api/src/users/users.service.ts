@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
 import { User, UserDto } from '@pdr-challenge-workspace/shared';
@@ -16,7 +16,7 @@ const DATA_FILE_PATH = path.join(
 export class UsersService {
   private users: User[] = [];
 
-  constructor() {
+  onModuleInit() {
     this.loadInitialData();
   }
 
@@ -48,9 +48,9 @@ export class UsersService {
       // readFileSync for synchronous loading at startup
       const data = fs.readFileSync(DATA_FILE_PATH, 'utf-8');
       this.users = JSON.parse(data) as User[];
-      console.log(`Loaded ${this.users.length} users from data file.`);
+      Logger.log(`Loaded ${this.users.length} users from data file.`);
     } catch (error) {
-      console.error('Failed to load users.json:', error);
+      Logger.error('Failed to load users.json:', error);
       // If the file is missing or corrupted, start with no users.
       this.users = [];
     }
@@ -80,7 +80,7 @@ export class UsersService {
         'utf-8'
       );
     } catch (error) {
-      console.error('Failed to write to users.json:', error);
+      Logger.error('Failed to write to users.json:', error);
       // In a real application, you might throw an InternalServerErrorException here.
     }
   }

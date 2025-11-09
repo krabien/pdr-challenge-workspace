@@ -3,16 +3,11 @@ import { ZodError, ZodSchema } from 'zod';
 
 @Injectable()
 export class ZodValidationPipe implements PipeTransform {
-  // The schema is passed to the constructor (e.g., UserSchema)
   constructor(private schema: ZodSchema) {}
 
   transform(value: unknown) {
     try {
-      // 1. Attempt to parse the request body using the Zod schema
-      this.schema.parse(value);
-
-      // 2. If successful, return the value
-      return value;
+      return this.schema.parse(value);
     } catch (error) {
       if (error instanceof ZodError) {
         // 3. If validation fails, format the error messages

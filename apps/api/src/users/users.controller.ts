@@ -1,6 +1,13 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UserDto, CreateUserSchema } from '@pdr-challenge-workspace/shared';
+import { CreateUserSchema, UserDto } from '@pdr-challenge-workspace/shared';
 import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
 
 @Controller('users')
@@ -21,7 +28,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.findOne(id);
   }
 }
