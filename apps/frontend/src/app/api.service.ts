@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '@pdr-challenge-workspace/shared';
 
-// The base URL for the NestJS backend. hardcoded here for ease of use,
-// this would typically be fetched from a compile-time configuration.
-const API_URL = 'http://localhost:3000/api';
+// This is a global variable that is set in index.html
+// It is used to configure the base URL for the API requests.
+const API_URL = (<never>window)['API_URL'];
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +22,6 @@ export class ApiService {
   }
 
   post<T>(path: string, body: User): Observable<T> {
-    return this.http.post<T>(`${API_URL}/${path}`, body);
+    return this.http.post<T>(`${(<never>window)['API_URL']}/${path}`, body);
   }
 }
