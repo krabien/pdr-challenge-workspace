@@ -147,5 +147,8 @@ $light-theme: mat.define-theme(
     typography: (
       use-system-variables: true,
     ),
+    density: (
+      scale: -2,
+    ),
   )
 );

@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>
-  @if (user$ | async; as user) { Details: {{ user.firstName }}
+  @if (user$ | async; as user) {Details: {{ user.firstName }}
   {{ user.lastName }}
   } @else { User details }
 </h2>
@@ -17,7 +17,7 @@
     <dd>{{ user.phoneNumber || '—' }}</dd>
 
     <dt>Birth Date</dt>
-    <dd>{{ user.birthDate | date : 'mediumDate' }}</dd>
+    <dd>{{ (user.birthDate | date : 'mediumDate') || '—'  }}</dd>
 
     <dt>Role</dt>
     <dd class="role">{{ user.role }}</dd>
