@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @use './frontend_theme-colors';
+@use './global-overrides.scss';
 
 @include mat.core();
 
@@ -20,8 +21,6 @@ body {
   font: var(--mat-sys-body-medium);
   margin: 0;
 }
-
-@import './global-overrides.scss';
 
 html,
 body {
