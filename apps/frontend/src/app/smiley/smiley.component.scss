@@ -28,7 +28,7 @@
   #smiley-face {
     width: min(90vw, 80vh);
     height: min(90vw, 80vh);
-    background-color: #f9d67a;
+    background-color: $face-color;
     border-radius: 50%;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
