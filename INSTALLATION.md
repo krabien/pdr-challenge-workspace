@@ -97,7 +97,7 @@ FRONTEND_URL=http://localhost:4200 NODE_ENV=production PORT=3000 node dist/apps/
 npx nx test api
 # Run e2e tests for frontend
  npx nx e2e api-e2e
- 
+
 # Lint a project
 npx nx lint api
 npx nx lint frontend
