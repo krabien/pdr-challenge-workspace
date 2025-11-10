@@ -1,6 +1,10 @@
 import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
 import { ZodError, ZodSchema } from 'zod';
 
+/**
+ * ZodValidationPipe is a custom NestJS pipe that validates incoming data using Zod schemas.
+ * It implements PipeTransform to transform incoming data before it reaches the controller.
+ */
 @Injectable()
 export class ZodValidationPipe implements PipeTransform {
   constructor(private schema: ZodSchema) {}

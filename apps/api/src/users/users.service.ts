@@ -81,7 +81,7 @@ export class UsersService {
       );
     } catch (error) {
       Logger.error('Failed to write to users.json:', error);
-      // In a real application, you might throw an InternalServerErrorException here.
+      // In a real application, we might throw an InternalServerErrorException here and log it to e.g., Sentry.io
     }
   }
 }

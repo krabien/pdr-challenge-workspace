@@ -44,16 +44,17 @@ For installation instructions, see [INSTALLATION.md](INSTALLATION.md).
   A more scalable solution would be to paginate requests to the backend, which can then in turn paginate its requests to the database.
   This, however, will become most useful once we reach a scale at which we decide to use a database for persistence.
 
-
---- 
+---
 
 ## Potential Future Improvements / Scalability
 
+- more comprehensive tests, including e2e tests for the frontend
+- more robust error handling
+- more robust logging, including error logging with stack traces and notifications e.g. Sentry.io
 - switch from `writeFileSync` to a more robust variant, e.g. one of the solutions proposed above
 - add authorization/authentication to API
 - Rate limiting: `@nestjs/throttler` for any public endpoints
 - Compression for responses
 - Use `@nestjs/config` with a Zod schema (since we already use Zod) to validate env vars at startup
-- add API versioning *(might not be necessary in our monorepo setup)*
-- add Swagger/OpenAPI *(might not be necessary in our monorepo setup)*
-
+- add API versioning _(might not be necessary in our monorepo setup)_
+- add Swagger/OpenAPI _(might not be necessary in our monorepo setup)_

@@ -17,6 +17,8 @@ async function bootstrap() {
   // CORS: restrict to known frontend origin in non-dev
   app.enableCors({
     origin:
+      // for ease of use in this assignment, we assume development by default.
+      // in a real-world scenario, always assume production!
       process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL : '*',
     methods: 'GET,POST',
   });
@@ -24,6 +26,8 @@ async function bootstrap() {
   // graceful shutdown
   app.enableShutdownHooks();
 
+  // Keeping the global prefix as a best practice.
+  // The assignment does not require it but doesn't explicitly forbid it either.
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
