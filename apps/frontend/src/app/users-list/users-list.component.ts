@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { UsersStoreService } from '../users-storage.service';
+import { UsersStoreService } from '../users-store.service';
 import { User } from '@pdr-challenge-workspace/shared';
 import { Subscription } from 'rxjs';
 import { UserDetailDialogComponent } from '../user-detail-dialog/user-detail-dialog.component';
@@ -92,7 +92,6 @@ export class UsersListComponent implements OnDestroy {
     });
   }
 
-  // Called from the template on input
   applyFilter(value: string): void {
     this.dataSource.filter = (value ?? '').trim().toLowerCase();
     if (this.dataSource.paginator) {

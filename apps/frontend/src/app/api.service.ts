@@ -3,8 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '@pdr-challenge-workspace/shared';
 
-// This is a global variable that is set in index.html
-// It is used to configure the base URL for the API requests.
+/** window.API_URL is a global variable that is set in index.html
+ * It is used to configure the base URL for the API requests.
+ * @see index.html for more details
+ */
 const API_URL = (<never>window)['API_URL'];
 
 @Injectable({

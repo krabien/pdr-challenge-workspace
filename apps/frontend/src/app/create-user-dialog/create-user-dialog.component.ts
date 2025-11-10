@@ -18,7 +18,7 @@ import {
   UserSchema,
   UserValidRoles,
 } from '@pdr-challenge-workspace/shared';
-import { UsersStoreService } from '../users-storage.service';
+import { UsersStoreService } from '../users-store.service';
 import {
   ISODateOnlyAdapter,
   YYYY_MM_DD_DATE_FORMATS,

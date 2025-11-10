@@ -14,6 +14,9 @@ export const YYYY_MM_DD_DATE_FORMATS: MatDateFormats = {
   },
 };
 
+/**
+ * Custom date adapter to use yyyy-MM-dd (commonly called "ISO date-only") for parse/display
+ */
 @Injectable()
 export class ISODateOnlyAdapter extends NativeDateAdapter {
   override format(date: Date): string {

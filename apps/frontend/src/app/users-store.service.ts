@@ -31,7 +31,7 @@ export class UsersStoreService {
         catchError((error) => {
           console.error('Failed to load users', error);
           this.loadingSubject.next(false);
-          // Optionally handle error state
+          // Optionally handle error state here, e.g. log remotely (Sentry.io)
           return of([]);
         }),
       )
